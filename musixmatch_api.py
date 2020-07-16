@@ -12,7 +12,7 @@ base_url = "https://api.musixmatch.com/ws/1.1/"
 # your api key
 api_key = os.getenv('MUSIXMATCH_api_key')
 
-sp_chars= [".","'","/",]
+sp_chars= [".","'","/","?"]
 
 
 def getLine(list):
@@ -35,6 +35,9 @@ def get_track_artist(track,artist):
         for i in sp_chars:
             track=track.replace(i,"")
             artist=artist.replace(i,"")
+            
+        track=track.replace('&','And')
+        artist=artist.replace('&','And')
         msg='#'+track.replace(' ','')+' by #'+artist.replace(' ','')
         
         return msg
@@ -44,7 +47,13 @@ def lyric_matcher(track,artist,n):
         api_call = base_url+lyrics_matcher+format_url+track_search_parameter+track+artist_search_parameter+artist
         request = requests.get(api_call+api_key)
         data = request.json()
-        lyrics='\n\n'+data['message']['body']['lyrics']['lyrics_body']
+        
+        if (data['message']['header']['status_code']==404):
+            lyrics='Lyric not found!!! \nPlease check if the format and the spellings are correct!\n'
+            return lyrics
+        else:
+            lyrics='\n\n'+data['message']['body']['lyrics']['lyrics_body']
+        
         lyrics=lyrics.replace('...','')
         lyrics.replace('\n\n\n','\n\n')
         lyrics=lyrics.replace("******* This Lyrics is NOT for Commercial use *******","")
@@ -59,7 +68,11 @@ def find_nth(haystack, needle, n):
     return start
 
 
+#def snip(lyrics,n):
+
 def snip(lyrics,n):
+    lyrics="\n\nAbhishek kya be bahoot has raha hai na kya be loaxdflkasdkjbsadkakjbdisbkjsdkjasdkjbaskjdfbaksjbdkjsabdkjasbdkjbsadkjbasdkjbaskjdbaskjbdfkjsabdkjabsdkjabsdkjbsadkjbsakjdbakjsdbksajbdakjsbdkjsabdkjabsdkjsabdkjabsdkjbaskjdbaksjdbkjasbdkjabsdkjanbkj\n"
+
     no=lyrics.count('\n\n')
     flag=0
     i=0
@@ -71,22 +84,22 @@ def snip(lyrics,n):
         snippet = lyrics[start:end].replace('\n\n','')
         
         if(i>=no):
-            end = start+ find_nth(lyrics[start:],'\n',6)
+            end = start+ find_nth(lyrics[start:],'\n',1)
             snippet = lyrics[start:end].replace('\n\n','')
-            if len(snippet) > 240:
-                end = start+ find_nth(lyrics[start:],'\n',4)
+            if len(snippet) < 70 or len(snippet)+n > 240:
+                end = start+ find_nth(lyrics[start:],'\n',2)
                 snippet = lyrics[start:end].replace('\n\n','')
-                if len(snippet) > 240:
+                if len(snippet) < 70 or len(snippet)+n > 240:
                     end = start+ find_nth(lyrics[start:],'\n',3)
                     snippet = lyrics[start:end].replace('\n\n','')
-                    if len(snippet) > 240:
-                        end = start+ find_nth(lyrics[start:],'\n',2)
+                    if len(snippet) < 70 or len(snippet)+n > 240:
+                        end = start+ find_nth(lyrics[start:],'\n',4)
                         snippet = lyrics[start:end].replace('\n\n','')
-                        if len(snippet) > 240:
-                            end = start+ find_nth(lyrics[start:],'\n',1)
+                        if len(snippet) < 70 or len(snippet)+n > 240:
+                            end = start+ find_nth(lyrics[start:],'\n',5)
                             snippet = lyrics[start:end].replace('\n\n','')
-        
-        
+                            if len(snippet) < 70 or len(snippet)+n > 240:
+                                snippet = 'Lyric too long to print. Consider requesting another song!!!\nPeace out puny Human!'
 
         if len(snippet) < 70 or len(snippet)+n > 240:
             flag=0

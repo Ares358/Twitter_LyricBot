@@ -29,16 +29,24 @@ def read_file(FILE):
 
 def post_tweet():
     trackList = read_file(FAV_FILE)
-    line = getLine(str(trackList))
-    separator = line.find('-') 
-    track = line[:separator]
-    artist= line[separator+1:]
-    print(artist+' + '+track)
-    n = len(artist)+len(track)+6
-    msg = lyric_matcher(track,artist,n)
-    print(msg)
-    api.update_status(msg)
+    flag=0
+    while(flag!=1):
+        try:
+            line = getLine(str(trackList))
+            separator = line.find('-') 
+            track = line[:separator]
+            artist= line[separator+1:]
 
+            print(artist+' + '+track)
+            n = len(artist)+len(track)+6
+            msg = lyric_matcher(track,artist,n)
+            print(msg)
+            api.update_status(msg)
+            flag=1
+
+        except Exception as E:
+            flag=0
+            print("Duplicate status averted" + E)
 
 
 def store_lastseen(FILE_NAME, lastseen_id):
@@ -66,12 +74,14 @@ def reply():
             n = len(artist)+len(track)+6
             msg = lyric_matcher(track,artist,n)
             print(msg)
-            api.update_status('@' + tweet.user.screen_name +'\n' + msg,tweet.id)
+            api.update_status('@' + tweet.user.screen_name + '\n' + msg,tweet.id)
+            
+            if (msg=='Lyrics not found!!! \nPlease check if the format and the spellings are correct!\n'):
+                continue
 
         api.create_favorite(tweet.id)
         api.retweet(tweet.id)
         store_lastseen(FILE_NAME, tweet.id)
-
 
 i=0
 while True:
@@ -81,4 +91,10 @@ while True:
         post_tweet()
     time.sleep(60)
     i+=1
+
+#track = 'useyou'
+#artist = 'mxmtoon'
+#n = len(artist)+len(track)+6
+#msg = lyric_matcher(track,artist,n)
+#print(msg)
 
