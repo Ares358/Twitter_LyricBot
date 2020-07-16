@@ -71,7 +71,7 @@ def reply():
             artist = tweet.full_text[track_end + 3:]
             print(track)
             print(artist)
-            n = len(artist)+len(track)+6
+            n = len(artist)+len(track)+8+len(tweet.user.screen_name)
             msg = lyric_matcher(track,artist,n)
             print(msg)
             api.update_status('@' + tweet.user.screen_name + '\n' + msg,tweet.id)

@@ -71,8 +71,6 @@ def find_nth(haystack, needle, n):
 #def snip(lyrics,n):
 
 def snip(lyrics,n):
-    lyrics="\n\nAbhishek kya be bahoot has raha hai na kya be loaxdflkasdkjbsadkakjbdisbkjsdkjasdkjbaskjdfbaksjbdkjsabdkjasbdkjbsadkjbasdkjbaskjdbaskjbdfkjsabdkjabsdkjabsdkjbsadkjbsakjdbakjsdbksajbdakjsbdkjsabdkjabsdkjsabdkjabsdkjbaskjdbaksjdbkjasbdkjabsdkjanbkj\n"
-
     no=lyrics.count('\n\n')
     flag=0
     i=0
@@ -84,22 +82,40 @@ def snip(lyrics,n):
         snippet = lyrics[start:end].replace('\n\n','')
         
         if(i>=no):
-            end = start+ find_nth(lyrics[start:],'\n',1)
-            snippet = lyrics[start:end].replace('\n\n','')
-            if len(snippet) < 70 or len(snippet)+n > 240:
-                end = start+ find_nth(lyrics[start:],'\n',2)
+            if len(snippet)+n > 240:
+                end = start+ find_nth(lyrics[start:],'\n',6)
                 snippet = lyrics[start:end].replace('\n\n','')
-                if len(snippet) < 70 or len(snippet)+n > 240:
-                    end = start+ find_nth(lyrics[start:],'\n',3)
+                if len(snippet)+n > 240:
+                    end = start+ find_nth(lyrics[start:],'\n',5)
                     snippet = lyrics[start:end].replace('\n\n','')
-                    if len(snippet) < 70 or len(snippet)+n > 240:
+                    if len(snippet)+n > 240:
                         end = start+ find_nth(lyrics[start:],'\n',4)
                         snippet = lyrics[start:end].replace('\n\n','')
-                        if len(snippet) < 70 or len(snippet)+n > 240:
-                            end = start+ find_nth(lyrics[start:],'\n',5)
+                        if len(snippet)+n > 240:
+                            end = start+ find_nth(lyrics[start:],'\n',3)
                             snippet = lyrics[start:end].replace('\n\n','')
-                            if len(snippet) < 70 or len(snippet)+n > 240:
-                                snippet = 'Lyric too long to print. Consider requesting another song!!!\nPeace out puny Human!'
+                            if len(snippet)+n > 240:
+                                end = start+ find_nth(lyrics[start:],'\n',2)
+                                snippet = lyrics[start:end].replace('\n\n','')
+                                if len(snippet)+n > 240:
+                                    snippet = 'Lyric too long to print. Consider requesting another song!!!\nPeace out puny Human!'
+            elif len(snippet) < 70:
+                end = start+ find_nth(lyrics[start:],'\n',1)
+                snippet = lyrics[start:end].replace('\n\n','')
+                if len(snippet) < 70:
+                    end = start+ find_nth(lyrics[start:],'\n',2)
+                    snippet = lyrics[start:end].replace('\n\n','')
+                    if len(snippet) < 70:
+                        end = start+ find_nth(lyrics[start:],'\n',3)
+                        snippet = lyrics[start:end].replace('\n\n','')
+                        if len(snippet) < 70:
+                            end = start+ find_nth(lyrics[start:],'\n',4)
+                            snippet = lyrics[start:end].replace('\n\n','')
+                            if len(snippet) < 70:
+                                end = start+ find_nth(lyrics[start:],'\n',5)
+                                snippet = lyrics[start:end].replace('\n\n','')
+                                if len(snippet) < 70:
+                                    snippet = 'Lyric too small to print. Consider requesting another song!!!\nPeace out puny Human!'
 
         if len(snippet) < 70 or len(snippet)+n > 240:
             flag=0
