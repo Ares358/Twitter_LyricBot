@@ -3,6 +3,7 @@ import json
 import random
 import dotenv
 import os
+from lyric_scraper import *
 
 dotenv.load_dotenv()
 
@@ -13,6 +14,9 @@ base_url = "https://api.musixmatch.com/ws/1.1/"
 api_key = os.getenv('MUSIXMATCH_api_key')
 
 sp_chars= [".","'","/","?"]
+
+glob_artist="lol"
+glob_track=""
 
 
 def getLine(list):
@@ -25,8 +29,7 @@ def getLine(list):
     line = list[start:end].replace('\n','')
     return line
 
-
-def get_track_artist(track,artist):
+def legacy_get_track_artist(track,artist):
         api_call = base_url+track_matcher+format_url+track_search_parameter+track+artist_search_parameter+artist
         request = requests.get(api_call+api_key)
         data = request.json()
@@ -42,8 +45,40 @@ def get_track_artist(track,artist):
         
         return msg
 
+def get_track_artist(track,artist,n):
+        api_call = base_url+track_matcher+format_url+track_search_parameter+track+artist_search_parameter+artist
+        request = requests.get(api_call+api_key)
+        data = request.json()
+        msg = ''
+        if(data['message']['header']['status_code']==404):
+            return 'Track not found'
+        track = data['message']['body']['track']['track_name']
+        artist = data['message']['body']['track']['artist_name']
+        for i in sp_chars:
+            track=track.replace(i,"")
+            artist=artist.replace(i,"")
+            
+        track=track.replace('&','And')
+        artist=artist.replace('&','And')
 
-def lyric_matcher(track,artist,n):
+        glob_track=track
+        glob_artist=artist
+        
+        msg='#'+track.replace(' ','')+' by #'+artist.replace(' ','')
+
+        
+        #print(msg)
+        #print(glob_artist)
+        #print(glob_track)
+        lyrics='\n\n'+get_lyrics(glob_artist,glob_track)+'\n'
+        #print(lyrics)
+        
+        if (lyrics=='\n\nRestricted\n'):
+            lyrics='\n\n'+legacy_lyric_matcher(glob_artist,glob_track,n)+'\n'
+        
+        return snip(lyrics,n) + '\n' + msg
+        
+def legacy_lyric_matcher(track,artist,n):
         api_call = base_url+lyrics_matcher+format_url+track_search_parameter+track+artist_search_parameter+artist
         request = requests.get(api_call+api_key)
         data = request.json()
@@ -57,7 +92,35 @@ def lyric_matcher(track,artist,n):
         lyrics=lyrics.replace('...','')
         lyrics.replace('\n\n\n','\n\n')
         lyrics=lyrics.replace("******* This Lyrics is NOT for Commercial use *******","")
-        return snip(lyrics,n) + '\n'+get_track_artist(track,artist)
+        
+        return lyrics
+        #return snip(lyrics,n) + '\n'+legacy_get_track_artist(track,artist)
+
+def lyric_matcher(track,artist,n):
+        ans=get_track_artist(track,artist,n)
+        return ans
+
+        #api_call = base_url+lyrics_matcher+format_url+track_search_parameter+track+artist_search_parameter+artist
+        #request = requests.get(api_call+api_key)
+        #data = request.json()
+        #
+        #if (data['message']['header']['status_code']==404):
+        #    lyrics='Lyric not found!!! \nPlease check if the format and the spellings are correct!\n'
+        #    return lyrics
+        #else:
+        #    lyrics='\n\n'+data['message']['body']['lyrics']['lyrics_body']
+        #
+        #lyrics=lyrics.replace('...','')
+        #lyrics.replace('\n\n\n','\n\n')
+        #lyrics=lyrics.replace("******* This Lyrics is NOT for Commercial use *******","")
+        
+        #if(exists == 'Not Found'):
+        #    return 'Track not found'
+        #print(exists)
+        #print(glob_artist)
+        #print(glob_track)
+        #lyrics='\n\n'+get_lyrics(glob_artist,glob_track)
+        #return snip(lyrics,n) + '\n'+exists
 
 def find_nth(haystack, needle, n):
     
@@ -68,7 +131,7 @@ def find_nth(haystack, needle, n):
     return start
 
 
-#def snip(lyrics,n):
+
 
 def snip(lyrics,n):
     no=lyrics.count('\n\n')
@@ -120,7 +183,6 @@ def snip(lyrics,n):
         if len(snippet) < 70 or len(snippet)+n > 240:
             flag=0
             i+=1
-    
     return snippet
 
 

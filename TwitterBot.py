@@ -27,6 +27,14 @@ def read_file(FILE):
     return file_data
 
 
+
+def store_lastseen(FILE_NAME, lastseen_id):
+    file_write = open(FILE_NAME, 'w')
+    file_write.write(str(lastseen_id))
+    file_write.close()
+    return 
+
+
 def post_tweet():
     trackList = read_file(FAV_FILE)
     flag=0
@@ -36,24 +44,24 @@ def post_tweet():
             separator = line.find('-') 
             track = line[:separator]
             artist= line[separator+1:]
-
+            
             print(artist+' + '+track)
+            
+            if(artist==read_file('lastartist.txt')):
+                continue
+            
             n = len(artist)+len(track)+6
             msg = lyric_matcher(track,artist,n)
             print(msg)
             api.update_status(msg)
             flag=1
+            
+            store_lastseen('lastartist.txt',artist)
 
         except Exception as E:
             flag=0
             print("Duplicate status averted" + E)
 
-
-def store_lastseen(FILE_NAME, lastseen_id):
-    file_write = open(FILE_NAME, 'w')
-    file_write.write(str(lastseen_id))
-    file_write.close()
-    return 
 
 
 def reply():
@@ -74,9 +82,9 @@ def reply():
             n = len(artist)+len(track)+8+len(tweet.user.screen_name)
             msg = lyric_matcher(track,artist,n)
             print(msg)
-            api.update_status('@' + tweet.user.screen_name + '\n' + msg,tweet.id)
+            api.update_status('@' + tweet.user.screen_name + '\n' + msg+"\nConsider re-checking the request format and spellings or requesting another track",tweet.id)
             
-            if (msg=='Lyrics not found!!! \nPlease check if the format and the spellings are correct!\n'):
+            if (msg=='Track not found'):
                 continue
 
         api.create_favorite(tweet.id)
@@ -86,15 +94,14 @@ def reply():
 i=0
 while True:
     i=i%180
-    reply()
     if(i==0):
-        post_tweet()
+       post_tweet()
     time.sleep(60)
     i+=1
 
-#track = 'useyou'
-#artist = 'mxmtoon'
+#track = 'still though we should dance'
+#artist = 'radnor and Lee'
 #n = len(artist)+len(track)+6
 #msg = lyric_matcher(track,artist,n)
-#print(msg)
+#print('\n----------------\n'+msg+'\n----------------\n')
 
