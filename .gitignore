@@ -1,2 +1,4 @@
 .env
 __pycache__/musixmatch_api.cpython-38.pyc
+__pycache__/lyric_scraper.cpython-38.pyc
+__pycache__/musixmatch_api_cleaner.cpython-38.pyc
