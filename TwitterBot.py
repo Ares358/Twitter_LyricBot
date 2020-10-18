@@ -127,27 +127,28 @@ def reply():
         store_lastseen(FILE_NAME, tweet.id)
 
 
-
+## New Method ##
+        
 flag=[0]
 
 def doThis(flag):
     now = datetime.datetime.now()
     hr = now.hour
-    hr = 24
     if(hr%3==0):
         if(flag[0]==0):
-            # post_tweet()
-            print('meow')
+            post_tweet()
             flag[0]=1
     else:
         flag[0]=0
-        print('woof')
-    # reply()
-    # time.sleep(60)
+    reply()
+    time.sleep(60)
 
 while True:
     doThis(flag)
 
+
+    
+## Old method ##
 
 # i=0
 # while True:
@@ -157,6 +158,9 @@ while True:
 #     if(i==1):
 #        post_tweet()
 #     time.sleep(60)
+
+
+## Test region ##
 
 # track = 'Girls like you'
 # artist = 'Denny'
