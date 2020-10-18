@@ -12,7 +12,7 @@ base_url = "https://api.musixmatch.com/ws/1.1/"
 # your api key
 api_key = os.getenv('MUSIXMATCH_api_key')
 
-sp_chars= [".","'","/","?"]
+sp_chars= [".","'","/","?","#",'@',"'",',','/','-']
 
 # api methods
 lyrics_matcher = "matcher.lyrics.get"
@@ -28,7 +28,7 @@ track_search_parameter = "&q_track="
 
 
 def find_nth(haystack, needle, n):
-    
+
     start = haystack.find(needle)
     while start >= 0 and n > 1:
         start = haystack.find(needle, start+len(needle))
@@ -36,7 +36,7 @@ def find_nth(haystack, needle, n):
     return start
 
 def getLine(list):
-    
+
     no = (list.count('\n'))
     no = int(no)
     n=random.randint(1,no-1)
@@ -46,38 +46,47 @@ def getLine(list):
     return line
 
 def get_track_artist(track,artist):
+
+    for i in sp_chars:
+        track=track.replace(i,"")
+        artist=artist.replace(i,"")
+
     api_call = base_url+track_matcher+format_url+track_search_parameter+track+artist_search_parameter+artist
     request = requests.get(api_call+api_key)
     data = request.json()
     track = data['message']['body']['track']['track_name']
     artist = data['message']['body']['track']['artist_name']
+
     for i in sp_chars:
         track=track.replace(i,"")
         artist=artist.replace(i,"")
-        
+
     track=track.replace('&','And')
     artist=artist.replace('&','And')
     msg='#'+track.replace(' ','')+' by #'+artist.replace(' ','')
-    
+
     return msg
 
 def lyric_matcher(track,artist,n):
+        for i in sp_chars:
+            track=track.replace(i,"")
+            artist=artist.replace(i,"")
         api_call = base_url+lyrics_matcher+format_url+track_search_parameter+track+artist_search_parameter+artist
         request = requests.get(api_call+api_key)
         data = request.json()
-        
+
         if (data['message']['header']['status_code']==404):
             lyrics='Lyric not found!!!\n'
             return lyrics
         else:
             lyrics='\n\n'+data['message']['body']['lyrics']['lyrics_body']
-        
+
         lyrics=lyrics.replace('...','')
         lyrics.replace('\n\n\n','\n\n')
         lyrics=lyrics.replace("******* This Lyrics is NOT for Commercial use *******","")
-        
+
         #return lyrics
-        return snip(lyrics,n) 
+        return snip(lyrics,n)
 
 def snip(lyrics,n):
     no=lyrics.count('\n\n')
@@ -89,7 +98,7 @@ def snip(lyrics,n):
         start = find_nth(lyrics,'\n\n',n)
         end = find_nth(lyrics,'\n\n',n+1)
         snippet = lyrics[start:end].replace('\n\n','')
-        
+
         if(i>=no):
             if len(snippet)+n > 240:
                 end = start+ find_nth(lyrics[start:],'\n',6)
@@ -130,6 +139,3 @@ def snip(lyrics,n):
             flag=0
             i+=1
     return snippet
-
-
-print(lyric_matcher("asdasdasd",'asdasdasdasdasd',9))
