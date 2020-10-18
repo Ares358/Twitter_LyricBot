@@ -1,4 +1,5 @@
 import time
+import datetime
 
 from musixmatch_api_cleaner import *
 
@@ -63,7 +64,7 @@ def post_tweet():
 
             no=0
             while(True):
-                no = random.randint(0,20)
+                no = random.randint(0,24)
                 if(os.path.exists(str(no)+'.jpg')):
                     break
                 else:
@@ -112,7 +113,7 @@ def reply():
 
             no=0
             while(True):
-                no = random.randint(0,20)
+                no = random.randint(0,24)
                 if(os.path.exists(str(no)+'.jpg')):
                     break
                 else:
@@ -126,14 +127,36 @@ def reply():
         store_lastseen(FILE_NAME, tweet.id)
 
 
-i=0
+
+flag=[0]
+
+def doThis(flag):
+    now = datetime.datetime.now()
+    hr = now.hour
+    hr = 24
+    if(hr%3==0):
+        if(flag[0]==0):
+            # post_tweet()
+            print('meow')
+            flag[0]=1
+    else:
+        flag[0]=0
+        print('woof')
+    # reply()
+    # time.sleep(60)
+
 while True:
-    i=i%180
-    reply()
-    if(i==0):
-       post_tweet()
-    time.sleep(60)
-    i+=1
+    doThis(flag)
+
+
+# i=0
+# while True:
+#     i+=1
+#     i=i%179
+#     reply()
+#     if(i==1):
+#        post_tweet()
+#     time.sleep(60)
 
 # track = 'Girls like you'
 # artist = 'Denny'
@@ -145,3 +168,5 @@ while True:
 # else:
 #     msg += '\n'+get_track_artist(track,artist)
 # print('\n----------------\n'+msg+'\n----------------\n')
+
+
