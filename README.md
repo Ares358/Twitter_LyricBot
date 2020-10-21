@@ -3,7 +3,7 @@
 
 Twitter bot that posts lyrics for favorite songs!
 
-[![Follow on Twitter](https://img.shields.io/twitter/follow/LGBTQotd?label=Follow&style=social)](https://twitter.com/RandomLyric_BOT)
+[![Follow on Twitter](https://img.shields.io/twitter/follow/RandomLyric_BOT?label=Follow&style=social)](https://twitter.com/RandomLyric_BOT)
 
 ## About
 
