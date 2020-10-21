@@ -2,6 +2,7 @@
 <h1 align="center">Welcome to Twitter Lyric Bot 👋</h1>
 <p>
 </p>
+
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
 Twitter bot that posts lyrics for favorite songs!
@@ -9,7 +10,7 @@ Twitter bot that posts lyrics for favorite songs!
 [![Follow on Twitter](https://img.shields.io/twitter/follow/RandomLyric_BOT?label=Follow&style=social)](https://twitter.com/RandomLyric_BOT)
 
 
-### 🏠 [Homepage](twitter.com/RandomLyric_Bot)
+## 🏠 [Homepage](twitter.com/RandomLyric_Bot)
 
 ## About
 
