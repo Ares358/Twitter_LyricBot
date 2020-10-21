@@ -10,7 +10,7 @@ Twitter bot that posts lyrics for favorite songs!
 [![Follow on Twitter](https://img.shields.io/twitter/follow/RandomLyric_BOT?label=Follow&style=social)](https://twitter.com/RandomLyric_BOT)
 
 
-## 🏠 [Homepage](twitter.com/RandomLyric_Bot)
+## 🏠 [See it in action on Twitter](https://twitter.com/RandomLyric_BOT)
 
 ## About
 
