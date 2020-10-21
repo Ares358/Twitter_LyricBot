@@ -1,9 +1,15 @@
-# Twitter_LyricBot
+
+<h1 align="center">Welcome to Twitter Lyric Bot 👋</h1>
+<p>
+</p>
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
 Twitter bot that posts lyrics for favorite songs!
 
 [![Follow on Twitter](https://img.shields.io/twitter/follow/RandomLyric_BOT?label=Follow&style=social)](https://twitter.com/RandomLyric_BOT)
+
+
+### 🏠 [Homepage](twitter.com/RandomLyric_Bot)
 
 ## About
 
@@ -32,3 +38,10 @@ Reply functionality
 * [Musixmatch API Docs](https://developer.musixmatch.com/documentation) - Used here to get information related to the songs provided
 
 * [Unsplash API Docs](https://unsplash.com/documentation) - Used here to get a random photo to go with the tweeted lyrics snippet
+
+## Author
+
+👤 **Ares358**
+
+* Github: [@Ares358](https://github.com/Ares358)
+
