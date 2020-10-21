@@ -10,8 +10,6 @@ Twitter bot that posts lyrics for favorite songs!
 [![Follow on Twitter](https://img.shields.io/twitter/follow/RandomLyric_BOT?label=Follow&style=social)](https://twitter.com/RandomLyric_BOT)
 
 
-## 🏠 [See it in action on Twitter](https://twitter.com/RandomLyric_BOT)
-
 ## About
 
 This bot tweets a random snippet of Lyrics from the list of favorite songs provided to it every 3 hrs with random Aesthetic images. Also replies the same to anyone who @ it with the correct format.
@@ -28,7 +26,7 @@ Tweet functionality
 <br>
 Reply functionality
 
-
+## 🏠 [See it in action on Twitter](https://twitter.com/RandomLyric_BOT)
 
 ## Reference Stuff
 
