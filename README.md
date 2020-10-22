@@ -28,7 +28,7 @@ Reply functionality
 
 ## 🏠 [See it in action on Twitter](https://twitter.com/RandomLyric_BOT)
 
-## Reference Stuff
+## References
 
 * [Tweepy Docs](http://www.tweepy.org/) - An easy-to-use Python library for accessing the Twitter API.
 
