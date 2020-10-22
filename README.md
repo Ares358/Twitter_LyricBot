@@ -17,7 +17,6 @@ This bot tweets a random snippet of Lyrics from the list of favorite songs provi
 The current format that the bot scans for replying is "@{BotUsername} #GetSnip {Song name} by {Artist Name}"
 
 ![Tweet1](https://github.com/Ares358/Twitter_LyricBot/blob/master/screenshots/Tweet1_SS.png)
-![Tweet2](https://github.com/Ares358/Twitter_LyricBot/blob/master/screenshots/Tweet2_SS.png)
 <br>
 Tweet functionality
 <br>
