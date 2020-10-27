@@ -16,16 +16,31 @@ This bot tweets a random snippet of Lyrics from the list of favorite songs provi
 
 The current format that the bot scans for replying is "@{BotUsername} #GetSnip {Song name} by {Artist Name}"
 
-![Tweet1](https://github.com/Ares358/Twitter_LyricBot/blob/master/screenshots/Tweet1_SS.png)
-<br>
-Tweet functionality
-<br>
-<br>
-![Reply](https://github.com/Ares358/Twitter_LyricBot/blob/master/screenshots/Reply_SS.png)
-<br>
-Reply functionality
+<table align="center" width="100%">
+  <tr>
+    <th>
+Tweet Functionality
+    </th>
+    <th>
+Reply Functionality
+    </th>
+  </tr>
+  <tr>
+    <td>
+<img src="https://github.com/Ares358/Twitter_LyricBot/blob/master/screenshots/Tweet1_SS.png">
+    </td>
+    <td>
+<img src="https://github.com/Ares358/Twitter_LyricBot/blob/master/screenshots/Tweet2_SS.png">
+    </td>
+  </tr>
+</table>
+
 
 ## 🏠 [See it in action on Twitter](https://twitter.com/RandomLyric_BOT)
+
+## Contributors
+
+[![Contributor icons](https://contributors-img.web.app/image?repo=Ares358/Twitter_LyricBot)](https://github.com/Ares358/Twitter_LyricBot/graphs/contributors)
 
 ## References
 
