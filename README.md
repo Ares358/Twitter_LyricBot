@@ -31,7 +31,7 @@ Reply Functionality
 <img src="https://github.com/Ares358/Twitter_LyricBot/blob/master/screenshots/Tweet1_SS.png">
     </td>
     <td>
-<img src="https://github.com/Ares358/Twitter_LyricBot/blob/master/screenshots/Reply_SS.png">
+<img height="100%" src="https://github.com/Ares358/Twitter_LyricBot/blob/master/screenshots/Reply_SS.png">
     </td>
   </tr>
 </table>
