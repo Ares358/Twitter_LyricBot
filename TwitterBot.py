@@ -34,6 +34,7 @@ HASH = '#getsnip'
 def download_image(url):
     filename ='temp.jpg'
     urllib.request.urlretrieve(url,filename)  
+    print('saving')
       
       
 def read_file(FILE):
@@ -96,7 +97,7 @@ def post_tweet():
             url = data[0]['urls']['full']
             download_image(url)
             
-            api.update_with_media(filename='temp.jpg', msg)
+            api.update_with_media('temp.jpg', msg)
             print('Posted and deleted '+str(no))
 
             flag=1
