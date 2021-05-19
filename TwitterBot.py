@@ -34,7 +34,6 @@ HASH = '#getsnip'
 def download_image(url):
     filename ='temp.jpg'
     urllib.request.urlretrieve(url,filename)  
-    print('saving')
       
       
 def read_file(FILE):
@@ -89,14 +88,21 @@ def post_tweet():
 #             api.update_with_media(str(no)+'.jpg', msg)
 #             os.remove(str(no)+'.jpg')
 #             print('Posted and deleted '+str(no))
+            while(True):
+                  q = query[random.randint(0,len(query)-1)]
+                  call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
+                  request = requests.get(call)
+                  data = request.json()
+                  url = data[0]['urls']['full']
+                  download_image(url)
+                  print('Checking size')
+                  if(os.path.getsize('temp.jpg')>=3072000):
+                        print('File size was '+str(os.path.getsize('temp.jpg'))+'. Retrying for a new image')
+                        continue
+                  else:
+                        print('Saved!')
+                        break
 
-            q = query[random.randint(0,len(query)-1)]
-            call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
-            request = requests.get(call)
-            data = request.json()
-            url = data[0]['urls']['full']
-            download_image(url)
-            
             api.update_with_media('temp.jpg', msg)
             print('Posted')
 
@@ -148,13 +154,21 @@ def reply():
 #             api.update_with_media(filename=str(no)+'.jpg',status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
 #             os.remove(str(no)+'.jpg')
 #             print('Posted and deleted '+str(no))
-            q = query[random.randint(0,len(query)-1)]
-            call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
-            request = requests.get(call)
-            data = request.json()
-            url = data[0]['urls']['full']
+            while(True):
+                  q = query[random.randint(0,len(query)-1)]
+                  call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
+                  request = requests.get(call)
+                  data = request.json()
+                  url = data[0]['urls']['full']
+                  download_image(url)
+                  print('Checking size')
+                  if(os.path.getsize('temp.jpg')>=3072000):
+                        print('File size was '+str(os.path.getsize('temp.jpg'))+'. Retrying for a new image')
+                        continue
+                  else:
+                        print('Saved!')
+                        break
 
-            download_image(url)
             
             api.update_with_media(filename='temp.jpg',status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
             print('Posted')
