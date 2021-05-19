@@ -4,7 +4,7 @@ import random
 from os import environ
 from PIL import Image
 import requests
-import io
+import urllib.request
 
 from musixmatch_api_cleaner import *
 
@@ -30,6 +30,12 @@ FILE_NAME = 'lastseen.txt'
 FAV_FILE = 'Fav_list.txt'
 HASH = '#getsnip'
 
+
+def download_image(url):
+    filename ='temp.jpg'
+    urllib.request.urlretrieve(url,filename)  
+      
+      
 def read_file(FILE):
     file_read = open(FILE, 'r')
     file_data = file_read.read().strip()
@@ -88,12 +94,9 @@ def post_tweet():
             request = requests.get(call)
             data = request.json()
             url = data[0]['urls']['full']
-
-            img = Image.open(requests.get(url, stream=True).raw)
-            img_byte_arr = io.BytesIO()
-            img.save(img_byte_arr, format='PNG')
-            img_byte_arr = img_byte_arr.getvalue()
-            api.update_with_media(file=img_byte_arr, msg)
+            download_image(url)
+            
+            api.update_with_media(filename='temp.jpg', msg)
             print('Posted and deleted '+str(no))
 
             flag=1
@@ -150,12 +153,9 @@ def reply():
             data = request.json()
             url = data[0]['urls']['full']
 
-            img = Image.open(requests.get(url, stream=True).raw)
-            img_byte_arr = io.BytesIO()
-            img.save(img_byte_arr, format='PNG')
-            img_byte_arr = img_byte_arr.getvalue()
+            download_image(url)
             
-            api.update_with_media(file=img_byte_arr,status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
+            api.update_with_media(filename='temp.jpg',status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
 
         store_lastseen(FILE_NAME, tweet.id)
 
