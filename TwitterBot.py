@@ -4,6 +4,7 @@ import random
 from os import environ
 from PIL import Image
 import requests
+import io
 
 from musixmatch_api_cleaner import *
 
@@ -89,8 +90,10 @@ def post_tweet():
             url = data[0]['urls']['full']
 
             img = Image.open(requests.get(url, stream=True).raw)
-            
-            api.update_with_media(img, msg)
+            img_byte_arr = io.BytesIO()
+            img.save(img_byte_arr, format='PNG')
+            img_byte_arr = img_byte_arr.getvalue()
+            api.update_with_media(img_byte_arr, msg)
             print('Posted and deleted '+str(no))
 
             flag=1
@@ -148,8 +151,11 @@ def reply():
             url = data[0]['urls']['full']
 
             img = Image.open(requests.get(url, stream=True).raw)
+            img_byte_arr = io.BytesIO()
+            img.save(img_byte_arr, format='PNG')
+            img_byte_arr = img_byte_arr.getvalue()
             
-            api.update_with_media(img,status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
+            api.update_with_media(img_byte_arr,status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
 
         store_lastseen(FILE_NAME, tweet.id)
 
