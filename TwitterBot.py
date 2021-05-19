@@ -127,8 +127,7 @@ def reply():
         store_lastseen(FILE_NAME, tweet.id)
 
 
-## New Method ##
-        
+
 flag=[0]
 
 def doThis(flag):
@@ -147,9 +146,6 @@ while True:
     doThis(flag)
 
 
-    
-## Old method ##
-
 # i=0
 # while True:
 #     i+=1
@@ -158,9 +154,6 @@ while True:
 #     if(i==1):
 #        post_tweet()
 #     time.sleep(60)
-
-
-## Test region ##
 
 # track = 'Girls like you'
 # artist = 'Denny'
