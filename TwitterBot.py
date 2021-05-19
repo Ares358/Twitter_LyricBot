@@ -1,6 +1,9 @@
 import time
 import datetime
+import random
 from os import environ
+from PIL import Image
+import requests
 
 from musixmatch_api_cleaner import *
 
@@ -11,11 +14,16 @@ secret = environ['TWITTER_SECRET']
 BearerToken = environ['TWITTER_BearerToken']
 access_token= environ['TWITTER_access_token']
 access_token_secret = environ['TWITTER_access_token_secret']
+api_key = environ['UNSPLASH_api_key']
 
 auth = tweepy.OAuthHandler(key, secret)
 auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
+
+   
+query=['Random','Tokyo life','Night city','flowers','Sea','Night sky','stars','Love','Moon','Film','Street Photography','Book','Friendship']
+
 
 FILE_NAME = 'lastseen.txt'
 FAV_FILE = 'Fav_list.txt'
@@ -61,17 +69,28 @@ def post_tweet():
             msg += '\n'+get_track_artist(track,artist)
             print(msg)
 
-            no=0
-            while(True):
-                no = random.randint(0,24)
-                if(os.path.exists(str(no)+'.jpg')):
-                    break
-                else:
-                    continue
+#             no=0
+#             while(True):
+#                 no = random.randint(0,24)
+#                 if(os.path.exists(str(no)+'.jpg')):
+#                     break
+#                 else:
+#                     continue
 
-            print(str(no)+' exists')
-            api.update_with_media(str(no)+'.jpg', msg)
-            os.remove(str(no)+'.jpg')
+#             print(str(no)+' exists')
+#             api.update_with_media(str(no)+'.jpg', msg)
+#             os.remove(str(no)+'.jpg')
+#             print('Posted and deleted '+str(no))
+
+            q = query[random.randint(0,len(query)-1)]
+            call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
+            request = requests.get(call)
+            data = request.json()
+            url = data[0]['urls']['full']
+
+            img = Image.open(requests.get(url, stream=True).raw)
+            
+            api.update_with_media(img, msg)
             print('Posted and deleted '+str(no))
 
             flag=1
@@ -103,25 +122,34 @@ def reply():
             n = len(artist)+len(track)+8+len(tweet.user.screen_name)
             msg = lyric_matcher(track,artist,n)
             print(msg)
-            if "Lyric not found" in msg:
+            if "Lyric not found" in msg or "Peace out puny Human" in msg:
                 api.update_status('@' + tweet.user.screen_name + '\n' + msg+"\nConsider re-checking the request format and spellings or requesting another track",tweet.id)
                 continue
             msg += '\n'+get_track_artist(track,artist)
             api.retweet(tweet.id)
             api.create_favorite(tweet.id)
 
-            no=0
-            while(True):
-                no = random.randint(0,24)
-                if(os.path.exists(str(no)+'.jpg')):
-                    break
-                else:
-                    continue
+#             no=0
+#             while(True):
+#                 no = random.randint(0,24)
+#                 if(os.path.exists(str(no)+'.jpg')):
+#                     break
+#                 else:
+#                     continue
 
-            print(str(no)+' exists')
-            api.update_with_media(filename=str(no)+'.jpg',status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
-            os.remove(str(no)+'.jpg')
-            print('Posted and deleted '+str(no))
+#             print(str(no)+' exists')
+#             api.update_with_media(filename=str(no)+'.jpg',status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
+#             os.remove(str(no)+'.jpg')
+#             print('Posted and deleted '+str(no))
+            q = query[random.randint(0,len(query)-1)]
+            call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
+            request = requests.get(call)
+            data = request.json()
+            url = data[0]['urls']['full']
+
+            img = Image.open(requests.get(url, stream=True).raw)
+            
+            api.update_with_media(img,status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
 
         store_lastseen(FILE_NAME, tweet.id)
 
