@@ -98,7 +98,7 @@ def post_tweet():
             download_image(url)
             
             api.update_with_media('temp.jpg', msg)
-            print('Posted and deleted '+str(no))
+            print('Posted')
 
             flag=1
 
@@ -157,6 +157,8 @@ def reply():
             download_image(url)
             
             api.update_with_media(filename='temp.jpg',status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
+            print('Posted')
+
 
         store_lastseen(FILE_NAME, tweet.id)
 
