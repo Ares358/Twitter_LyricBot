@@ -5,7 +5,7 @@ from os import environ
 from PIL import Image
 import requests
 import urllib.request
-
+import os
 from musixmatch_api_cleaner import *
 
 import tweepy
