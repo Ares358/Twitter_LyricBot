@@ -5,13 +5,11 @@ from musixmatch_api_cleaner import *
 
 import tweepy
 
-dotenv.load_dotenv()
-
-key = os.getenv('TWITTER_KEY')
-secret = os.getenv('TWITTER_SECRET')
-BearerToken = os.getenv('TWITTER_BearerToken')
-access_token=os.getenv('TWITTER_access_token')
-access_token_secret = os.getenv('TWITTER_access_token_secret')
+key = environ['TWITTER_KEY']
+secret = environ['TWITTER_SECRET']
+BearerToken = environ['TWITTER_BearerToken']
+access_token= environ['TWITTER_access_token']
+access_token_secret = environ['TWITTER_access_token_secret']
 
 auth = tweepy.OAuthHandler(key, secret)
 auth.set_access_token(access_token, access_token_secret)
