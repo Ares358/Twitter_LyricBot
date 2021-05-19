@@ -4,13 +4,12 @@ import random
 import dotenv
 import os
 
-dotenv.load_dotenv()
 
 # musixmatch api base url
 base_url = "https://api.musixmatch.com/ws/1.1/"
 
 # your api key
-api_key = os.getenv('MUSIXMATCH_api_key')
+api_key =environ['MUSIXMATCH_api_key']
 
 sp_chars= [".","'","/","?","#",'@',"'",',','/','-']
 
