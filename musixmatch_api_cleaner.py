@@ -1,6 +1,7 @@
 import requests
 import json
 import random
+from os import environ
 
 # musixmatch api base url
 base_url = "https://api.musixmatch.com/ws/1.1/"
