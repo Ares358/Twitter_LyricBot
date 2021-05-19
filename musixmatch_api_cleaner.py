@@ -1,9 +1,6 @@
 import requests
 import json
 import random
-import dotenv
-import os
-
 
 # musixmatch api base url
 base_url = "https://api.musixmatch.com/ws/1.1/"
