@@ -2,7 +2,7 @@ import time
 import datetime
 import random
 from os import environ
-from PIL import Image
+import dropbox
 import requests
 import urllib.request
 import os
@@ -16,7 +16,9 @@ BearerToken = environ['TWITTER_BearerToken']
 access_token= environ['TWITTER_access_token']
 access_token_secret = environ['TWITTER_access_token_secret']
 api_key = environ['UNSPLASH_api_key']
+DB_Token = environ['DropBox_Token']
 
+dbx = dropbox.Dropbox(DB_Token)
 auth = tweepy.OAuthHandler(key, secret)
 auth.set_access_token(access_token, access_token_secret)
 
@@ -29,6 +31,22 @@ query=['Random','Tokyo life','Night city','flowers','Sea','Night sky','stars','L
 FILE_NAME = 'lastseen.txt'
 FAV_FILE = 'Fav_list.txt'
 HASH = '#getsnip'
+
+file_from = 'lastseen.txt'
+file_to = '/tweets_lastseen/'+file_from
+
+def read_DB_file(dbx, FILE_NAME):
+    _, f = dbx.files_download(FILE_NAME)
+    id = f.content
+    id = id.decode('utf-8')
+    file_write = open(FILE_NAME, 'w')
+    file_write.write(str(id))
+    file_write.close()
+    return id
+   
+def update_DB_file(dbx,FILE_NAME,file_to):
+   with open(FILE_NAME, 'rb') as f:
+    dbx.files_upload(f.read(), file_to, mode=dropbox.files.WriteMode.overwrite)
 
 
 def download_image(url):
@@ -118,12 +136,14 @@ def post_tweet():
 
 
 def reply():
-    tweets = api.mentions_timeline(read_file(FILE_NAME),tweet_mode='extended')
+    tweets = api.mentions_timeline(read_DB_file(dbx,FILE_NAME),tweet_mode='extended')
 
     for tweet in reversed(tweets):
         if HASH in tweet.full_text.lower():
 
             store_lastseen(FILE_NAME, tweet.id)
+            update_DB_file(dbx,FILE_NAME,file_to)
+            
             print(str(tweet.id) + "-" + tweet.full_text+ "\n\n")
 
             track_start = 9 + (tweet.full_text.lower().find(HASH))
