@@ -199,8 +199,8 @@ def reply():
 
 def doThis():
     now = datetime.datetime.now()
-    min = now.min
-    if(min==0):
+    min = now.minute
+    if(min % 30==0):
       post_tweet()
     reply()
     time.sleep(60)
