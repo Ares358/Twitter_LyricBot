@@ -193,7 +193,7 @@ def reply():
 
 
         store_lastseen(FILE_NAME, tweet.id)
-
+        update_DB_file(dbx,FILE_NAME,file_to)
 
 
 flag=[0]
