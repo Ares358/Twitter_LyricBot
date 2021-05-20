@@ -196,17 +196,12 @@ def reply():
         update_DB_file(dbx,FILE_NAME,file_to)
 
 
-flag=[0]
 
 def doThis(flag):
     now = datetime.datetime.now()
-    hr = now.hour
-    if(hr%3==0):
-        if(flag[0]==0):
-            post_tweet()
-            flag[0]=1
-    else:
-        flag[0]=0
+    min = now.min
+    if(min==0):
+      post_tweet()
     reply()
     time.sleep(60)
 
