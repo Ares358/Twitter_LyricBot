@@ -197,7 +197,7 @@ def reply():
 
 
 
-def doThis(flag):
+def doThis():
     now = datetime.datetime.now()
     min = now.min
     if(min==0):
@@ -206,7 +206,7 @@ def doThis(flag):
     time.sleep(60)
 
 while True:
-    doThis(flag)
+    doThis()
 
 
 # i=0
