@@ -31,7 +31,7 @@ query=['Random','Tokyo life','Night city','flowers','Sea','Night sky','stars','L
 FILE_NAME = 'lastseen.txt'
 FAV_FILE = 'Fav_list.txt'
 HASH = '#getsnip'
-file_to = '/tweets_lastseen/'+FILE_NAME
+file_to = '/'+FILE_NAME
 
 def read_DB_file(dbx, FILE_NAME):
     _, f = dbx.files_download('/'+FILE_NAME)
