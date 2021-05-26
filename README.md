@@ -3,11 +3,9 @@
 <p>
 </p>
 
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+![Twitter_LyricBot](https://socialify.git.ci/Ares358/Twitter_LyricBot/image?description=1&descriptionEditable=A%20Twitter%20bot%20that%20posts%20lyrics%20for%20your%20favorite%20songs!&forks=1&language=1&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Dark)
 
-A Twitter bot that posts lyrics for your favorite songs!
-
-[![Follow on Twitter](https://img.shields.io/twitter/follow/RandomLyric_BOT?label=Follow&style=social)](https://twitter.com/RandomLyric_BOT)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)  [![Follow on Twitter](https://img.shields.io/twitter/follow/RandomLyric_BOT?label=Follow&style=social)](https://twitter.com/RandomLyric_BOT)
 
 
 ## About
