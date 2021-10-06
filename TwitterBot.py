@@ -48,11 +48,13 @@ def update_DB_file(dbx,FILE_NAME,file_to):
 
 
 def download_image(url):
+   '''download the image at url '''
     filename ='temp.jpg'
     urllib.request.urlretrieve(url,filename)  
       
       
 def read_file(FILE):
+'''return the data of the file FILE'''
     file_read = open(FILE, 'r')
     file_data = file_read.read().strip()
     file_read.close()
@@ -61,6 +63,7 @@ def read_file(FILE):
 
 
 def store_lastseen(FILE_NAME, lastseen_id):
+   '''write lastseen of lastseen_id in FILE_NAME file'''
     file_write = open(FILE_NAME, 'w')
     file_write.write(str(lastseen_id))
     file_write.close()
