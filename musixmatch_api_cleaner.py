@@ -25,7 +25,7 @@ track_search_parameter = "&q_track="
 
 
 def find_nth(haystack, needle, n):
-
+    """Find the nth occurrence of substring in a string."""
     start = haystack.find(needle)
     while start >= 0 and n > 1:
         start = haystack.find(needle, start+len(needle))
@@ -33,7 +33,7 @@ def find_nth(haystack, needle, n):
     return start
 
 def getLine(list):
-
+    """Get line from list iterator."""
     no = (list.count('\n'))
     no = int(no)
     n=random.randint(1,no-1)
@@ -43,7 +43,7 @@ def getLine(list):
     return line
 
 def get_track_artist(track,artist):
-
+    """Get track artist detail."""
     for i in sp_chars:
         track=track.replace(i,"")
         artist=artist.replace(i,"")
@@ -65,27 +65,28 @@ def get_track_artist(track,artist):
     return msg
 
 def lyric_matcher(track,artist,n):
-        for i in sp_chars:
-            track=track.replace(i,"")
-            artist=artist.replace(i,"")
-        api_call = base_url+lyrics_matcher+format_url+track_search_parameter+track+artist_search_parameter+artist
-        request = requests.get(api_call+api_key)
-        data = request.json()
+    """Get the lyrics for track based on title and artist"""
+    for i in sp_chars:
+        track=track.replace(i,"")
+        artist=artist.replace(i,"")
+    api_call = base_url+lyrics_matcher+format_url+track_search_parameter+track+artist_search_parameter+artist
+    request = requests.get(api_call+api_key)
+    data = request.json()
 
-        if (data['message']['header']['status_code']==404):
-            lyrics='Lyric not found!!!\n'
-            return lyrics
-        else:
-            lyrics='\n\n'+data['message']['body']['lyrics']['lyrics_body']
+    if (data['message']['header']['status_code']==404):
+        lyrics='Lyric not found!!!\n'
+        return lyrics
+    else:
+        lyrics='\n\n'+data['message']['body']['lyrics']['lyrics_body']
 
-        lyrics=lyrics.replace('...','')
-        lyrics.replace('\n\n\n','\n\n')
-        lyrics=lyrics.replace("******* This Lyrics is NOT for Commercial use *******","")
-
-        #return lyrics
-        return snip(lyrics,n)
+    lyrics=lyrics.replace('...','')
+    lyrics.replace('\n\n\n','\n\n')
+    lyrics=lyrics.replace("******* This Lyrics is NOT for Commercial use *******","")
+    
+    return snip(lyrics,n)
 
 def snip(lyrics,n):
+    """Get the snippet for a given track lyrics."""
     no=lyrics.count('\n\n')
     flag=0
     i=0
