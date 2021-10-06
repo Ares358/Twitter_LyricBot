@@ -64,7 +64,6 @@ def store_lastseen(FILE_NAME, lastseen_id):
     file_write = open(FILE_NAME, 'w')
     file_write.write(str(lastseen_id))
     file_write.close()
-    return
 
 
 def post_tweet():
