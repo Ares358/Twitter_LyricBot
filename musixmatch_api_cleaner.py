@@ -42,6 +42,30 @@ def getLine(list):
     line = list[start:end].replace('\n','')
     return line
 
+def topCharts():
+    api_key =environ['MUSIXMATCH_api_key']
+    track_matcher = "chart.tracks.get"
+    format_url = "?format=json&callback=callback"
+    chart_name='&chart_name=hot'
+    page='&page=1'
+    page_size = '&page_size=100'
+    country = '&country=us'
+    has_lyrics = '&f_has_lyrics=1'
+
+    api_call = base_url+track_matcher+format_url+chart_name+page+page_size+country+has_lyrics
+    request = requests.get(api_call+api_key)
+    data = request.json()
+
+    track_list = data['message']['body']['track_list'] 
+
+    tracks = []
+    for track in track_list:
+        track_name=track['track']['track_name']
+        artist_name=track['track']['artist_name']
+        tracks.append(track_name+'-'+artist_name)
+
+    return tracks
+
 def get_track_artist(track,artist):
     """Get track artist detail."""
     for i in sp_chars:
