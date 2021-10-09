@@ -69,7 +69,7 @@ def store_lastseen(FILE_NAME, lastseen_id):
 def post_topCharts():
     trackList = topCharts()
     flag=0
-    while(flag!=1):
+    while flag!=1:
         try:
 #             line = getLine(str(trackList))
             rand_ind = random.randint(0, len(trackList)-1)	
@@ -80,7 +80,7 @@ def post_topCharts():
 
             print(artist+' + '+track)
 
-            if(artist==read_file('lastartist.txt')):
+            if artist==read_file('lastartist.txt'):
                 continue
 
             n = len(artist)+len(track)+6
@@ -93,7 +93,7 @@ def post_topCharts():
             msg += '\n'+get_track_artist(track,artist)
             print(msg)
 
-            while(True):
+            while True:
                   q = query[random.randint(0,len(query)-1)]
                   call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
                   request = requests.get(call)
@@ -101,7 +101,7 @@ def post_topCharts():
                   url = data[0]['urls']['full']
                   download_image(url)
                   print('Checking size')
-                  if(os.path.getsize('temp.jpg')>=3072000):
+                  if os.path.getsize('temp.jpg')>=3072000:
                         print('File size was '+str(os.path.getsize('temp.jpg'))+'. Retrying for a new image')
                         continue
                   else:
@@ -126,7 +126,7 @@ def post_topCharts():
 def post_tweet():
     trackList = read_file(FAV_FILE)
     flag=0
-    while(flag!=1):
+    while flag!=1:
         try:
             line = getLine(str(trackList))
             separator = line.find('-')
@@ -135,7 +135,7 @@ def post_tweet():
 
             print(artist+' + '+track)
 
-            if(artist==read_file('lastartist.txt')):
+            if artist==read_file('lastartist.txt'):
                 continue
 
             n = len(artist)+len(track)+6
@@ -160,7 +160,7 @@ def post_tweet():
 #             api.update_with_media(str(no)+'.jpg', msg)
 #             os.remove(str(no)+'.jpg')
 #             print('Posted and deleted '+str(no))
-            while(True):
+            while True:
                   q = query[random.randint(0,len(query)-1)]
                   call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
                   request = requests.get(call)
@@ -168,7 +168,7 @@ def post_tweet():
                   url = data[0]['urls']['full']
                   download_image(url)
                   print('Checking size')
-                  if(os.path.getsize('temp.jpg')>=3072000):
+                  if os.path.getsize('temp.jpg')>=3072000:
                         print('File size was '+str(os.path.getsize('temp.jpg'))+'. Retrying for a new image')
                         continue
                   else:
@@ -228,7 +228,7 @@ def reply():
 #             api.update_with_media(filename=str(no)+'.jpg',status ='@' + tweet.user.screen_name +'\n' + msg,in_reply_to_status_id=tweet.id)
 #             os.remove(str(no)+'.jpg')
 #             print('Posted and deleted '+str(no))
-            while(True):
+            while True:
                   q = query[random.randint(0,len(query)-1)]
                   call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
                   request = requests.get(call)
@@ -236,7 +236,7 @@ def reply():
                   url = data[0]['urls']['full']
                   download_image(url)
                   print('Checking size')
-                  if(os.path.getsize('temp.jpg')>=3072000):
+                  if os.path.getsize('temp.jpg')>=3072000:
                         print('File size was '+str(os.path.getsize('temp.jpg'))+'. Retrying for a new image')
                         continue
                   else:
@@ -256,9 +256,9 @@ def reply():
 def doThis():
     now = datetime.datetime.now()
     min = now.minute
-    if(min == 0):
+    if min == 0:
       post_topCharts()
-    elif(min == 30):
+    elif min == 30:
       post_tweet()
    
     reply()
