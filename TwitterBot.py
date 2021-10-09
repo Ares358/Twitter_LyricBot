@@ -65,6 +65,63 @@ def store_lastseen(FILE_NAME, lastseen_id):
     file_write.write(str(lastseen_id))
     file_write.close()
 
+      
+def post_topCharts():
+    trackList = topCharts()
+    flag=0
+    while(flag!=1):
+        try:
+#             line = getLine(str(trackList))
+            rand_ind = random.randint(0, len(trackList)-1)	
+            line = str(trackList[rand_ind])
+            separator = line.find('-')
+            track = line[:separator]
+            artist= line[separator+1:]
+
+            print(artist+' + '+track)
+
+            if(artist==read_file('lastartist.txt')):
+                continue
+
+            n = len(artist)+len(track)+6
+            msg = lyric_matcher(track,artist,n)
+            if "Lyric not found" in msg:
+                continue
+            elif "Lyric too " in msg:
+                continue
+
+            msg += '\n'+get_track_artist(track,artist)
+            print(msg)
+
+            while(True):
+                  q = query[random.randint(0,len(query)-1)]
+                  call='https://api.unsplash.com/photos/random/?query='+q+'&content_filter=high&orientation=landscape&count=1&featured=true&client_id='+api_key
+                  request = requests.get(call)
+                  data = request.json()
+                  url = data[0]['urls']['full']
+                  download_image(url)
+                  print('Checking size')
+                  if(os.path.getsize('temp.jpg')>=3072000):
+                        print('File size was '+str(os.path.getsize('temp.jpg'))+'. Retrying for a new image')
+                        continue
+                  else:
+                        print('Saved!')
+                        break
+
+            api.update_with_media('temp.jpg', msg)
+            print('Posted')
+
+            flag=1
+
+            store_lastseen('lastartist.txt',artist)
+
+        except Exception as E:
+            flag=0
+            print("Duplicate status averted")
+            print(E)
+            continue
+
+
 
 def post_tweet():
     trackList = read_file(FAV_FILE)
@@ -199,8 +256,11 @@ def reply():
 def doThis():
     now = datetime.datetime.now()
     min = now.minute
-    if(min % 30==0):
+    if(min == 0):
+      post_topCharts()
+    elif(min == 30):
       post_tweet()
+   
     reply()
     time.sleep(60)
 
