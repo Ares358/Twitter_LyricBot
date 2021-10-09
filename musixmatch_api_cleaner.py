@@ -97,7 +97,7 @@ def lyric_matcher(track,artist,n):
     request = requests.get(api_call+api_key)
     data = request.json()
 
-    if (data['message']['header']['status_code']==404):
+    if data['message']['header']['status_code']==404:
         lyrics='Lyric not found!!!\n'
         return lyrics
     else:
@@ -114,14 +114,14 @@ def snip(lyrics,n):
     no=lyrics.count('\n\n')
     flag=0
     i=0
-    while(flag!=1):
+    while flag!=1:
         flag=1
         n=random.randint(1,no)
         start = find_nth(lyrics,'\n\n',n)
         end = find_nth(lyrics,'\n\n',n+1)
         snippet = lyrics[start:end].replace('\n\n','')
 
-        if(i>=no):
+        if i>=no:
             if len(snippet)+n > 240:
                 end = start+ find_nth(lyrics[start:],'\n',6)
                 snippet = lyrics[start:end].replace('\n\n','')
