@@ -34,6 +34,7 @@ file_to = '/' + FILE_NAME
 
 
 def read_DB_file(dbx, FILE_NAME):
+    '''Read file from databse.'''
     _, f = dbx.files_download('/' + FILE_NAME)
     id = f.content
     id = id.decode('utf-8')
@@ -44,6 +45,7 @@ def read_DB_file(dbx, FILE_NAME):
 
 
 def update_DB_file(dbx, FILE_NAME, file_to):
+    '''Update file in database.'''
     with open(FILE_NAME, 'rb') as f:
         dbx.files_upload(f.read(), file_to, mode=dropbox.files.WriteMode.overwrite)
 
@@ -67,6 +69,7 @@ def store_lastseen(FILE_NAME, lastseen_id):
 
 
 def post_topCharts():
+    '''Post Topcharts with lyrics of song and image.'''
     trackList = topCharts()
     flag = 0
     while flag != 1:

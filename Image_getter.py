@@ -24,6 +24,7 @@ def download_image(url,i):
     
 
 def rgb_to_hsv(rgb):
+    '''Convert Image from RGB to HSV.'''
     # Translated from source of colorsys.rgb_to_hsv
     # r,g,b should be a numpy arrays with values between 0 and 255
     # rgb_to_hsv returns an array of floats between 0.0 and 1.0.
@@ -49,6 +50,7 @@ def rgb_to_hsv(rgb):
     return hsv
 
 def hsv_to_rgb(hsv):
+    '''Convert Image from HSV to RGB.'''
     # Translated from source of colorsys.hsv_to_rgb
     # h,s should be a numpy arrays with values between 0.0 and 1.0
     # v should be a numpy array with values between 0.0 and 255.0
