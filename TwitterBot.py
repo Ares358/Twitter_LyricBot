@@ -255,20 +255,23 @@ def reply():
         update_DB_file(dbx, FILE_NAME, file_to)
 
 
-def doThis():
+def doThis(count):
     now = datetime.datetime.now()
     min = now.minute
     if min == 0:
-        post_topCharts()
-    elif min == 30:
-        post_tweet()
+        count+=1
+
+        if count%2==0: post_topCharts() else: post_tweet()
+
 
     reply()
     time.sleep(60)
 
 
 while True:
-    doThis()
+    count=0
+    doThis(count)
+    
 
 # i=0
 # while True:
