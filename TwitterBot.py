@@ -261,7 +261,7 @@ def doThis(count):
     if min == 0:
         count+=1
 
-        if count%2==0: post_topCharts() else: post_tweet()
+        post_topCharts() if count%2==0 else post_tweet()
 
 
     reply()
