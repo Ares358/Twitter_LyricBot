@@ -72,6 +72,7 @@ def post_topCharts():
     '''Post Topcharts with lyrics of song and image.'''
     trackList = topCharts()
     flag = 0
+    print("Printing from topCharts!")
     while flag != 1:
         try:
             # line = getLine(str(trackList))
@@ -128,6 +129,7 @@ def post_topCharts():
 def post_tweet():
     trackList = read_file(FAV_FILE)
     flag = 0
+    print("Printing from Fav_list!")
     while flag != 1:
         try:
             line = getLine(str(trackList))
