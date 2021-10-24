@@ -261,18 +261,18 @@ def doThis(count):
     now = datetime.datetime.now()
     min = now.minute
     if min == 0:
-        count+=1
 
         post_topCharts() if count%2==0 else post_tweet()
 
 
+        COUNT+=1
     reply()
     time.sleep(60)
 
 
-count=0
+COUNT=0
 while True:
-    doThis(count)
+    doThis(COUNT)
     
 
 # i=0
