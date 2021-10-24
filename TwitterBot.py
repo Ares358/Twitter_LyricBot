@@ -33,6 +33,8 @@ HASH = '#getsnip'
 file_to = '/' + FILE_NAME
 
 
+COUNT=0
+
 def read_DB_file(dbx, FILE_NAME):
     '''Read file from databse.'''
     _, f = dbx.files_download('/' + FILE_NAME)
@@ -270,7 +272,6 @@ def doThis(count):
     time.sleep(60)
 
 
-COUNT=0
 while True:
     doThis(COUNT)
     
