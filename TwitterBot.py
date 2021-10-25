@@ -262,6 +262,7 @@ def reply():
 def doThis(count):
     now = datetime.datetime.now()
     min = now.minute
+    global COUNT
     if min == 0:
 
         post_topCharts() if count%2==0 else post_tweet()
