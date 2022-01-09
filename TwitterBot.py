@@ -265,8 +265,11 @@ def doThis(count):
     global COUNT
     if min == 0:
 
-        post_topCharts() if count%2==0 else post_tweet()
-
+#         post_topCharts() if count%2==0 else post_tweet()
+        if count%4==0:
+                  post_topCharts()
+        elif count%4==2:
+                  post_tweet()
 
         COUNT+=1
     reply()
