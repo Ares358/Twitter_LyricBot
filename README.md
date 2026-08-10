@@ -1,4 +1,5 @@
 
+
 <h1 align="center">Welcome to Twitter Lyric Bot 👋</h1>
 <p>
 </p>
@@ -51,9 +52,16 @@ Reply Functionality
 
 * [Unsplash API Docs](https://unsplash.com/documentation) - Used here to get a random photo to go with the tweeted lyrics snippet
 
+## Environment Variables
+
+Ensure the following environment variables are set before running the bot (e.g., in a `.env` file or your system environment):
+* `TWITTER_KEY`, `TWITTER_SECRET`, `TWITTER_BearerToken`, `TWITTER_access_token`, `TWITTER_access_token_secret`
+* `MUSIXMATCH_api_key`
+* `UNSPLASH_api_key`
+* `DropBox_Token`
+
 ## Author
 
 👤 **Ares358**
 
 * Github: [@Ares358](https://github.com/Ares358)
-
